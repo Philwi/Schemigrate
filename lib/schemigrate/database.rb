@@ -48,7 +48,7 @@ module Schemigrate
     def create_schema server
       server_config = database_configuration[Rails.env][server.to_s]
       execute <<-SQL
-        CREATE SCHEMA #{server_config['service']}
+        CREATE SCHEMA IF NOT EXISTS #{server_config['service']}
       SQL
     end
 
