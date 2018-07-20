@@ -87,6 +87,7 @@ module Schemigrate
             SQL
           rescue StandardError => e
             puts "Error: #{e}"
+          end
 				end
 			end
 		end
