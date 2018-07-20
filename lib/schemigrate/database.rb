@@ -46,14 +46,14 @@ module Schemigrate
 				case server_config['dbsystem']
 				when 'MySQL'
 					execute <<-SQL
-						CREATE USER MAPPING FOR IF NOT EXISTS #{current_user}
+						CREATE USER MAPPING IF NOT EXISTS FOR#{current_user}
 						SERVER #{server_config['service']}
 						OPTIONS (username '#{server_config['user']}',
 										password '#{server_config['password']}')
 					SQL
 				when 'PostgreSQL'
 					execute <<-SQL
-						CREATE USER MAPPING FOR IF NOT EXISTS #{current_user}
+						CREATE USER MAPPING IF NOT EXISTS FOR #{current_user}
 						SERVER #{server_config['service']}
 						OPTIONS (user '#{server_config['user']}',
 										password '#{server_config['password']}')
