@@ -3,7 +3,7 @@ module Schemigrate
     def create_fdw_extension server
       database_configuration[Rails.env].each do |server|
         binding.pry
-        server_config = server[server.to_s]
+        server_config = server.to_s
         case server_config['dbsystem']
         when 'MySQL'
           enable_extension :mysql_fdw
