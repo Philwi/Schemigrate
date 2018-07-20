@@ -80,6 +80,7 @@ module Schemigrate
 					puts "noch nicht implementiert"
 				else
           begin
+            binding.pry
             execute <<-SQL
               IMPORT FOREIGN SCHEMA #{server_config['schema']}
               FROM SERVER #{server_config['service']}
