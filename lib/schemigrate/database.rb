@@ -17,13 +17,26 @@ module Schemigrate
     def create_server_connection server
       database_configuration[Rails.env].each_with_index do |s, index|
         server_config = database_configuration[Rails.env].values[index]
-				execute <<-SQL
-					CREATE SERVER IF NOT EXISTS #{server}
-					FOREIGN DATA WRAPPER postgres_fdw
-					OPTIONS (host '#{server_config['host']}',
-									port '#{server_config['port']}',
-									dbname '#{server_config['dbname']}')
-				SQL
+				case server_config['dbsystem']
+				when 'MySQL'
+					execute <<-SQL
+						CREATE SERVER IF NOT EXISTS #{server_config['service']}
+						FOREIGN DATA WRAPPER mysql_fdw
+						OPTIONS (host '#{server_config['host']}',
+										port '#{server_config['port']}',
+										dbname '#{server_config['dbname']}')
+					SQL
+				when 'PostgreSQL'
+					execute <<-SQL
+						CREATE SERVER IF NOT EXISTS #{server_config['service']}
+						FOREIGN DATA WRAPPER postgres_fdw
+						OPTIONS (host '#{server_config['host']}',
+										port '#{server_config['port']}',
+										dbname '#{server_config['dbname']}')
+					SQL
+				else
+					puts 'Wrong nor implemented database-system.'
+				end
 			end
     end
 
@@ -33,15 +46,15 @@ module Schemigrate
 				case server_config['dbsystem']
 				when 'MySQL'
 					execute <<-SQL
-						CREATE USER MAPPING FOR #{current_user}
-						SERVER #{server}
+						CREATE USER MAPPING FOR IF NOT EXISTS #{current_user}
+						SERVER #{server_config['service']}
 						OPTIONS (username '#{server_config['user']}',
 										password '#{server_config['password']}')
 					SQL
 				when 'PostgreSQL'
 					execute <<-SQL
-						CREATE USER MAPPING FOR #{current_user}
-						SERVER #{server}
+						CREATE USER MAPPING FOR IF NOT EXISTS #{current_user}
+						SERVER #{server_config['service']}
 						OPTIONS (user '#{server_config['user']}',
 										password '#{server_config['password']}')
 					SQL
@@ -68,7 +81,7 @@ module Schemigrate
 				else
 					execute <<-SQL
 						IMPORT FOREIGN SCHEMA #{server_config['schema']}
-						FROM SERVER #{server}
+						FROM SERVER #{server_config['service']}
 						INTO #{server_config['service']}
 					SQL
 				end
