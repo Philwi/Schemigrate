@@ -64,5 +64,17 @@ module Schemigrate
         SQL
       end
     end
+
+    delegate :execute, :enable_extension, to: :connection
+
+    def connection
+      ActiveRecord::Base.connection
+    end
+
+    def database_configuration
+      yaml = Pathname.new('config/schemigrate.yml')
+      YAML.load(ERB.new(yaml.read).result)
+    end
+
   end
 end
