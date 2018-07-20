@@ -1,5 +1,6 @@
-require 'immigrate/railtie'
-require 'immigrate/database'
+require 'schemigrate/railtie'
+require 'schemigrate/database'
+require 'schemigrate/version'
 
 module Schemigrate
   def self.database
