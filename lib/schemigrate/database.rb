@@ -35,9 +35,9 @@ module Schemigrate
             execute <<-SQL
               CREATE SERVER IF NOT EXISTS #{server_config['service']}
               FOREIGN DATA WRAPPER postgres_fdw
-              OPTIONS (host "#{server_config['host']}",
-                      port "#{server_config['port']}",
-                      dbname "#{server_config['dbname']}")
+              OPTIONS (host '#{server_config['host']}',
+                      port '#{server_config['port']}',
+                      dbname '#{server_config['dbname']}')
             SQL
           else
             puts 'Wrong nor implemented database-system.'
@@ -57,15 +57,15 @@ module Schemigrate
             execute <<-SQL
               CREATE USER MAPPING IF NOT EXISTS FOR#{current_user}
               SERVER #{server_config['service']}
-              OPTIONS (username "#{server_config['user']}",
-                      password "#{server_config['password']}")
+              OPTIONS (username '#{server_config['user']}',
+                      password '#{server_config['password']}')
             SQL
           when "PostgreSQL"
             execute <<-SQL
               CREATE USER MAPPING IF NOT EXISTS FOR #{current_user}
               SERVER #{server_config['service']}
-              OPTIONS (user "#{server_config['user']}",
-                      password "#{server_config['password']}")
+              OPTIONS (user '#{server_config['user']}',
+                      password '#{server_config['password']}')
             SQL
           else
             puts 'Wrong nor implemented database-system.'
