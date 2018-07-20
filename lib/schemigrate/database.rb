@@ -74,17 +74,19 @@ module Schemigrate
 		end
 
 		def import_foreign_schema server
-      binding.pry
 			database_configuration[Rails.env].each_with_index do |s, index|
 				server_config = database_configuration[Rails.env].values[index]
 				if server_config['expect'].nil?
 					puts "noch nicht implementiert"
 				else
-					execute <<-SQL
-						IMPORT FOREIGN SCHEMA #{server_config['schema']}
-						FROM SERVER #{server_config['service']}
-						INTO #{server_config['service']}
-					SQL
+          begin
+            execute <<-SQL
+              IMPORT FOREIGN SCHEMA #{server_config['schema']}
+              FROM SERVER #{server_config['service']}
+              INTO #{server_config['service']}
+            SQL
+          rescue StandardError => e
+            puts "Error: #{e}"
 				end
 			end
 		end
