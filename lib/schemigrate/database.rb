@@ -1,6 +1,7 @@
 module Schemigrate
   class Database
     def create_fdw_extension server
+      binding.pry
       server_config = database_configuration[Rails.env][server.to_s]
       case server_config['dbsystem']
       when 'MySQL'
@@ -15,7 +16,7 @@ module Schemigrate
     def create_server_connection server
       server_config = database_configuration[Rails.env][server.to_s]
       execute <<-SQL
-        CREATE SERVER #{server}
+        CREATE SERVER IF NOT EXISTS #{server}
         FOREIGN DATA WRAPPER postgres_fdw
         OPTIONS (host '#{server_config['host']}',
                  port '#{server_config['port']}',
