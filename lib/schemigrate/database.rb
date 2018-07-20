@@ -1,6 +1,7 @@
 module Schemigrate
   class Database
     def create_fdw_extension server
+      binding.pry
       database_configuration[Rails.env].each_with_index do |s, index|
         server_config = database_configuration[Rails.env].values[index]
         case server_config['dbsystem']
@@ -15,6 +16,7 @@ module Schemigrate
     end
 
     def create_server_connection server
+      binding.pry
       database_configuration[Rails.env].each_with_index do |s, index|
         server_config = database_configuration[Rails.env].values[index]
 				case server_config['dbsystem']
@@ -41,6 +43,7 @@ module Schemigrate
     end
 
 		def create_user_mapping server
+      binding.pry
 			database_configuration[Rails.env].each_with_index do |s, index|
 				server_config = database_configuration[Rails.env].values[index]
 				case server_config['dbsystem']
@@ -65,6 +68,7 @@ module Schemigrate
 		end
 
 		def create_schema server
+      binding.pry
 			database_configuration[Rails.env].each_with_index do |s, index|
 				server_config = database_configuration[Rails.env].values[index]
 				execute <<-SQL
@@ -74,13 +78,13 @@ module Schemigrate
 		end
 
 		def import_foreign_schema server
+      binding.pry
 			database_configuration[Rails.env].each_with_index do |s, index|
 				server_config = database_configuration[Rails.env].values[index]
 				if server_config['expect'].nil?
 					puts "noch nicht implementiert"
 				else
           begin
-            binding.pry
             execute <<-SQL
               IMPORT FOREIGN SCHEMA #{server_config['schema']}
               FROM SERVER #{server_config['service']}
