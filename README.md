@@ -5,7 +5,7 @@
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'immigrate'
+gem 'schemigrate'
 ```
 
 And then execute:
@@ -16,7 +16,7 @@ And then execute:
 
 ### Connecting to a Remote Server
 
-You will need to have a connection to a remote server before you can create a foreign table. This connection has to be created with connection information and user credentials for the foreign server in a `config/immigrate.yml` file:
+You will need to have a connection to a remote server before you can create a foreign table. This connection has to be created with connection information and user credentials for the foreign server in a `config/schemigrate.yml` file:
 
 ```yaml
 development:
@@ -26,6 +26,7 @@ development:
     dbname: foreign_db
     user: foreign_user
     password: password
+    schema:
 
 production:
   foreign_server:
@@ -34,6 +35,7 @@ production:
     dbname: foreign_db
     user: foreign_user
     password: password
+    schema:
 ```
 
 Next you will need to create a migration to create the connection using a standard migration file like `db/migrate/[TIMESTAMP]_create_foreign_connection.rb:
