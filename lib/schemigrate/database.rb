@@ -1,15 +1,17 @@
 module Schemigrate
   class Database
     def create_fdw_extension server
-      server_config = database_configuration[Rails.env][server.to_s]
-      binding.pry
-      case server_config['dbsystem']
-      when 'MySQL'
-        enable_extension :mysql_fdw
-      when 'PostgreSQL'
-        enable_extension :postgres_fdw
-      else
-        puts 'Wrong nor implemented database-system.'
+      database_configuration[Rails.env].each do |server|
+        binding.pry
+        server_config = server[server.to_s]
+        case server_config['dbsystem']
+        when 'MySQL'
+          enable_extension :mysql_fdw
+        when 'PostgreSQL'
+          enable_extension :postgres_fdw
+        else
+          puts 'Wrong nor implemented database-system.'
+        end
       end
     end
 
