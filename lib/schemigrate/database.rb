@@ -93,7 +93,7 @@ module Schemigrate
 			database_configuration[Rails.env].each_with_index do |s, index|
 				server_config = database_configuration[Rails.env].values[index]
         begin
-          if server_config['expect'].nil?
+          if !server_config['expect'].blank?
             puts "noch nicht implementiert"
           else
             execute <<-SQL
