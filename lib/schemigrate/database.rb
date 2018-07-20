@@ -65,6 +65,10 @@ module Schemigrate
       end
     end
 
+    def current_user
+      execute("SELECT CURRENT_USER").first['current_user']
+    end
+
     delegate :execute, :enable_extension, to: :connection
 
     def connection
