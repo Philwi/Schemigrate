@@ -1,7 +1,6 @@
 module Schemigrate
   module SchemaStatements
     def create_foreign_connection foreign_server
-      binding.pry
       database.create_fdw_extension foreign_server
       database.create_server_connection foreign_server
       database.create_user_mapping foreign_server

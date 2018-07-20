@@ -74,6 +74,7 @@ module Schemigrate
 		end
 
 		def import_foreign_schema server
+      binding.pry
 			database_configuration[Rails.env].each_with_index do |s, index|
 				server_config = database_configuration[Rails.env].values[index]
 				if server_config['expect'].nil?
