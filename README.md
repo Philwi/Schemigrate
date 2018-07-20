@@ -26,7 +26,13 @@ development:
     dbname: foreign_db
     user: foreign_user
     password: password
+    #schema for psql = public, mysql = databasename
     schema:
+    #dbsystem: MySQL or PostgreSQL
+    dbsystem:
+    #service - in which local schema the foreign schema will load and to execute these tables with service.foreign_table
+    service:
+    
 
 production:
   foreign_server:
@@ -36,6 +42,10 @@ production:
     user: foreign_user
     password: password
     schema:
+    #dbsystem: MySQL or PostgreSQL
+    dbsystem:
+    #service - in which local schema the foreign schema will load and to execute these tables with service.foreign_table
+    service:
 ```
 
 Next you will need to create a migration to create the connection using a standard migration file like `db/migrate/[TIMESTAMP]_create_foreign_connection.rb:
