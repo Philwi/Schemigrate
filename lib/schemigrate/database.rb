@@ -1,9 +1,9 @@
 module Schemigrate
   class Database
     def create_fdw_extension server
-      database_configuration[Rails.env].each do |server|
+      database_configuration[Rails.env].each do |s|
         binding.pry
-        server_config = server.to_s
+        server_config = s[server.to_s]
         case server_config['dbsystem']
         when 'MySQL'
           enable_extension :mysql_fdw
