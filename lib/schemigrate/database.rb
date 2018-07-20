@@ -1,7 +1,6 @@
 module Schemigrate
   class Database
     def create_fdw_extension server
-      binding.pry
       server_config = database_configuration[Rails.env][server.to_s]
       case server_config['dbsystem']
       when 'MySQL'
