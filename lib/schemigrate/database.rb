@@ -28,8 +28,7 @@ module Schemigrate
               CREATE SERVER IF NOT EXISTS #{server_config['service']}
               FOREIGN DATA WRAPPER mysql_fdw
               OPTIONS (host '#{server_config['host']}',
-                      port '#{server_config['port']}',
-                      dbname '#{server_config['dbname']}')
+                      port '#{server_config['port']}')
             SQL
           when "PostgreSQL"
             execute <<-SQL
