@@ -93,6 +93,7 @@ module Schemigrate
 			database_configuration[Rails.env].each_with_index do |s, index|
 				server_config = database_configuration[Rails.env].values[index]
         begin
+          binding.pry
           if !server_config['expect'].nil?
             execute <<-SQL
               IMPORT FOREIGN SCHEMA #{server_config['schema']}
