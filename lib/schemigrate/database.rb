@@ -81,7 +81,7 @@ module Schemigrate
 				server_config = database_configuration[Rails.env].values[index]
         begin
           execute <<-SQL
-            DROP SCHEMA IF EXISTS #{server_config['service']};
+            DROP SCHEMA IF EXISTS #{server_config['service']} CASCADE;
             CREATE SCHEMA #{server_config['service']}
           SQL
         rescue StandardError => e
