@@ -94,7 +94,12 @@ module Schemigrate
 				server_config = database_configuration[Rails.env].values[index]
         begin
           if !server_config['expect'].blank?
-            puts "noch nicht implementiert"
+            execute <<-SQL
+              IMPORT FOREIGN SCHEMA #{server_config['schema']}
+              EXCEPT (#{server_config['except']})
+              FROM SERVER #{server_config['service']}
+              INTO #{server_config['service']}
+            SQL
           else
             execute <<-SQL
               IMPORT FOREIGN SCHEMA #{server_config['schema']}
