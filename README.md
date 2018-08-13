@@ -23,7 +23,7 @@ development:
   PostgreSQL_server:
     host: 192.83.123.89
     #PostgreSQL-Database port. Not from your application
-    port: 
+    port:
     dbname: foreign_db
     user: foreign_user
     password: password
@@ -34,7 +34,7 @@ development:
   MySQL_server:
     host: 192.83.123.89
     #MySQL-Database port. Not from your application
-    port: 3306 
+    port: 3306
     dbname: foreign_db
     user: foreign_user
     password: password
@@ -42,8 +42,8 @@ development:
     dbsystem: MySQL
     #service - in which local schema the foreign schema will load and to execute these tables with service.foreign_table
     service:
-    
-    
+
+
 ```
 
 Next you will need to create a migration to create the connection using a standard migration file like `db/migrate/[TIMESTAMP]_create_foreign_connection.rb:
@@ -51,7 +51,7 @@ Next you will need to create a migration to create the connection using a standa
 ```ruby
 class CreateForeignConnection < ActiveRecord::Migration[5.0]
   def change
-    create_foreign_connection :foreign_server
+    create_foreign_connection :foreign_schema
   end
 end
 ```
