@@ -5,7 +5,7 @@ module Schemigrate
       database.create_server_connection foreign_server
       database.create_user_mapping foreign_server
       database.create_schema foreign_server
-      database.import_foreign_server foreign_schema
+      database.import_foreign_server foreign_server
     end
   private
     def database
